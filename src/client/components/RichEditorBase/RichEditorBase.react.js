@@ -22,6 +22,10 @@ import {
   Urils
 } from 'slate';
 
+const plainText = '<hello>ffasdf</hello>';
+const deserializedPlainText = Plain.deserialize(plainText);
+console.log('pt', deserializedPlainText);
+
 const propTypes = {};
 const defaultProps = {};
 
@@ -30,7 +34,7 @@ class RichEditorBase extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      state: Plain.deserialize('')
+      state: Plain.deserialize(plainText)
     };
   }
 
@@ -46,6 +50,10 @@ class RichEditorBase extends Component {
     console.log('selection change', selection);
   }
 
+  hanldeKeyDown(event, data, state) {
+    console.log('keydown:', event, data, state);
+  }
+
   render() {
     const {
       state
@@ -57,6 +65,7 @@ class RichEditorBase extends Component {
           onChange={this.handleChange.bind(this)}
           onDocumentChange={this.handleDocumentChange.bind(this)}
           onSelectionChange={this.handleSelectionChange.bind(this)}
+          onKeyDown={this.hanldeKeyDown.bind(this)}
           placeholder="Placeholder text here"
           readOnly={false}
           state={state}
